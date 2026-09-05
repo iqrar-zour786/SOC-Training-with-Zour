@@ -1,0 +1,201 @@
+SOC ANALYST LEVEL 1
+
+1. System Attack Vectors:
+
+In-House ( Internal ) SOC
+
+SOC Team Structure
+
+Security
+Analysts
+    |
+Incident
+Responders
+    |
+Threat
+Hunters
+    |
+SOC
+Manager
+    |
+Security
+Engineers
+
+
+System As Attack Vectors
+
+If you understand systems as attack vectors, you stop being a beginner and start thinking like an
+analyst. In SOC, we don't just protect users or data, we protect SYSTEMS, because every system
+can be abused as an attack vector.
+
+
+A system becomes an attack vector when an attacker uses it to:
+
+1. Gain initial access
+
+1. Move laterally
+
+1. Maintain persistence
+
+1. Exfiltrate data
+
+1. Launch further attacks
+
+
+Human Oriented Attacks
+
+Users are those who start the attack mostly : (Before external factors, Users are responsible at first)
+
+By inserting a malicious USB found on a street, downloading malware from pirated resources, or
+simply reusing a weak password everywhere. 81% of breaches involve stolen or breached
+passwords.
+
+Example :
+
+. Rubber Ducky. .
+. Keyloggers binded with legitimate softwares.
+. Clicking on suspicious links.
+. Opening any email or sent attachments.
+. Storing passwords at unsecure portals.
+. Trusting soon.
+. Using outdated/pirated softwares etc.
+
+
+Supply Chain Attacks
+
+Your PC is home to hundreds of apps, including web browsers, messengers, development, and
+entertainment software. Every app depends on thousands of libraries.
+
+If threat actors manage to breach one of the apps or libraries and push an update to all its users, all
+of them will be compromised. This technique is called a supply chain attack. The most famous
+examples are the SolarWinds and 3CX breaches which affected thousands of companies.
+
+It is hard to protect from supply chain attacks since you can't always control all the software present
+on your laptops, servers, and web apps.
+
+
+Vulnerabilities
+
+=> A vulnerability is a weakness in a system, software, hardware, or process that can be exploited by
+an attacker to Gain access, Escalate privileges,Execute code. Steal data,Disrupt services & more ...
+
+"A vulnerability is a flaw or weakness in a system that can be exploited to compromise
+confidentiality, integrity, or availability."
+
+Vulnerabilities can exist in Softwares, OS, Applications, Network Devices, Firmwares
+Services or even Security Software solutions
+
+
+Software Vulnerabilities:
+
+
+Example of Software Vulnerabilities :
+
+. SQL Injection
+. Command Injection
+. Buffer Overflow
+. Cross-Site Scripting (XSS)
+. Remote Code Execution (RCE)
+
+SOC Detection :
+
+. WAF alerts
+. Web server logs
+. Unusual POST requests
+. EDR alerts on servers
+
+
+Operating System Vulnerabilities
+
+Example of Operating System Vulnerabilities :
+
+. Windows Vulnerabilities
+. Linux Vulnerabilities
+. mac OS kernels or services Vulnerabilities etc
+
+For example : Privilege escalation bugs, SMB vulnerabilities (EternalBlue), Kernel exploits etc.
+
+SOC Detection :
+
+. Sudden privilege changes
+. Exploit behavior in EDR
+. Kernel driver loading alerts etc ...
+
+
+Network Vulnerabilities
+
+Example of Network Vulnerabilities :
+
+. Open ports
+. Weak protocols (Telnet, FTP)
+. Unpatched routers/firewalls
+. Exposed admin interfaces
+
+SOC Detection :
+
+. IDS/IPS alerts
+. Firewall logs
+. Excessive authentication failures
+
+
+Authentication & Authorization Vulnerabilities
+
+
+Example of Authentication & Authorization Vulnerabilities :
+
+· Weak passwords
+· No MFA
+. Broken access control
+. Privilege escalation paths
+
+SOC Detection :
+
+. IAM alerts
+. Access logs
+. Role change events
+
+
+Configuration-Dependent Vulnerabilities
+
+Example of Configuration-Dependent Vulnerabilities :
+
+. Debug mode enabled
+. Default credentials
+· Excessive permissions
+
+SOC Detection :
+
+. Admin panel exposed
+. Default credentials unchanged
+. System takeover
+
+
+Zero-Day Vulnerabilities
+
+
+A vulnerability which patch does not exist yet as it unknown to the vendor yet and are used by
+malicious actors like Hackers.
+
+SOC Detection :
+
+. Abnormal processes
+. Suspicious network traffic
+. Lateral movement
+
+Endpoint Misconfigurations
+
+. Antivirus disabled
+. Local admin access
+· USB allowed everywhere
+
+SOC Example :
+
+Malware executed
+
+No EDR
+
+Persistence established
+
+"Most breaches don't happen because of zero-days, they happen because of
+miscontigurations and unpatched vuinerabilities.
+
