@@ -199,3 +199,15 @@ Persistence established
 "Most breaches don't happen because of zero-days, they happen because of
 miscontigurations and unpatched vuinerabilities.
 
+
+Servers application / Database / File
+
+Types :
+. Web servers
+. App servers
+. DB serverser
+. File servers
+
+
+for practice :
+https://tryhackme.com/why-subscribe?roomCode=systemsattackvectors
