@@ -1,0 +1,153 @@
+MITRE ATT@CK Journey
+
+
+Tactic #14 = Impact
+
+
+[ The Final stage of MITRE ATT@CK ]
+
+
+💥 MITRE ATT&CK Tactic #14 — Impact
+🎯 Goal
+
+The adversary is trying to disrupt, destroy, manipulate, or damage systems, data, or business operations.
+
+Think of it this way:
+
+Collection → Gather data 📂
+Exfiltration → Steal data 🌐
+Impact → Cause damage 💥
+
+Sometimes attackers don't just want to steal information—they want to stop the business from operating.
+
+
+Common Impact Techniques
+🔒 Encrypt files (Ransomware)
+🗑️ Delete files
+💾 Delete backups
+💥 Wipe disks
+⚙️ Stop critical services
+🌐 Deface websites
+✏️ Modify data
+🚫 Denial of Service (DoS)
+🏭 Disrupt business operations
+
+
+Windows Event IDs & Telemetry
+
+There is no single Event ID that says "Impact."
+
+SOC analysts correlate multiple events.
+
+4688 – Process Creation
+
+Watch for suspicious tools:
+
+vssadmin.exe
+wbadmin.exe
+cipher.exe
+bcdedit.exe
+wevtutil.exe
+
+
+1102 – Audit Log Cleared
+
+One of the biggest red flags.
+
+Attackers often clear Windows Security logs to hide their activity.
+
+
+7036 / 7040 / 7045
+
+Service changes:
+
+Services stopped
+Services disabled
+Malicious services installed
+
+
+4663 – Object Access
+
+Can indicate:
+
+Mass file modifications
+File deletions
+Encryption activity (if auditing is enabled)
+
+
+🚩 Red Flags
+Thousands of files suddenly renamed or encrypted.
+Volume Shadow Copies deleted.
+Event logs cleared (1102).
+Security software disabled.
+Backup services stopped.
+Multiple servers affected simultaneously.
+Users report files cannot be opened.
+Systems reboot unexpectedly.
+
+
+SOC Investigation Checklist
+
+When you suspect an Impact event, ask:
+
+✅ What systems are affected?
+✅ What process caused the impact?
+✅ When did it begin?
+✅ Were backups deleted?
+✅ Were event logs cleared?
+✅ Is ransomware involved?
+✅ Which user or account initiated it?
+✅ Can the affected systems be isolated immediately?
+✅ Was data exfiltrated before the impact?
+✅ What is the business impact?
+
+
+Real-World Attack Timeline
+
+Imagine a ransomware attack:
+
+🎣 Phishing email delivers malware.
+🖥️ Malware executes (4688).
+🔑 Privileges are escalated.
+🔍 Internal discovery and lateral movement occur.
+📂 Sensitive data is collected.
+🌐 Data is exfiltrated.
+🗑️ vssadmin.exe deletes Volume Shadow Copies (4688).
+📜 Security logs are cleared (1102).
+🔒 Files are encrypted across the network.
+🚨 Employees lose access to critical systems.
+
+This is Impact—the attacker has caused real damage to the organization.
+
+
+
+🎯 Dada's Final MITRE ATT&CK Quiz (No Google 😄)
+Q1.
+
+What is the primary objective of the Impact tactic?
+
+Q2.
+
+Which Windows Event ID indicates that the Security log was cleared?
+
+Q3.
+
+Why do attackers often delete Volume Shadow Copies before deploying ransomware?
+
+Q4.
+
+You receive alerts that:
+
+Thousands of files are being encrypted.
+Event ID 1102 appears.
+vssadmin.exe was executed.
+Users cannot access shared folders.
+
+As a SOC analyst:
+
+What are your first investigation steps?
+What are your first response actions?
+
+
+link:
+https://attack.mitre.org/tactics/TA0040/
