@@ -1,0 +1,57 @@
+🛡️ SOC Analyst Journey
+
+MITRE ATT&CK – TA0042: Resource Development
+
+Golden Rule
+
+I'm going to give you one sentence that I want you to remember forever:
+
+Reconnaissance = Learn about the victim. 🕵️
+
+Resource Development = Prepare your own resources. 🧰
+
+That's it.
+
+TA0042: Resource Development is one of the 14 tactics in the MITRE ATT&CK® framework. 
+It sits at the very beginning of the adversary lifecycle—before any actual targeting or intrusion occurs.
+
+What It Means
+Resource Development covers the activities an adversary undertakes to create, purchase, or compromise the infrastructure, 
+accounts, and capabilities they'll need for later operations. Think of it as the "pre-production" phase of an attack campaign.
+
+If an attacker wants to phish a target, they first need:
+A domain to host the fake login page
+An email account to send from
+Possibly malware that evades known signatures
+
+All of that preparation falls under Resource Development.
+
+
+Why It Matters for Defenders
+
+Resource Development is often the only phase where the adversary is visible before the attack. Indicators include:
+
+Domain registrations with names similar to your brand (typosquats)
+Certificate transparency logs showing new TLS certs for lookalike domains
+Social media profiles impersonating your executives
+Dark web marketplace activity selling or buying access to your infrastructure
+
+
+Defensive Actions
+
+Threat Intelligence: Monitor for domains, certs, and accounts impersonating your organization
+Brand Protection: Use services that detect typosquats and fake social profiles
+Supply Chain Monitoring: Watch for compromised infrastructure in your vendor ecosystem
+Honeypots & Deception: Deploy fake credentials or infrastructure to detect when adversaries "test" their tools
+
+
+Real-World Context
+
+Advanced Persistent Threats (APTs) and ransomware groups spend weeks or months in Resource Development. For example:
+
+link:
+https://attack.mitre.org/tactics/TA0042/
+
+APT29 (Cozy Bear) is known to compromise legitimate websites and cloud tenants to use as redirectors and command-and-control infrastructure.
+
+Ransomware affiliates routinely purchase access to already-compromised networks from Initial Access Brokers (IABs)—a clear T1588 (Obtain Capabilities) activity.
