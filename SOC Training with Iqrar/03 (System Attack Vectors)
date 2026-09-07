@@ -197,7 +197,35 @@ No EDR
 Persistence established
 
 "Most breaches don't happen because of zero-days, they happen because of
-miscontigurations and unpatched vuinerabilities.
+misconfigurations and unpatched vulnerabilities.
+
+Misconfigurations:
+
+This happens when a system, application, network device, or cloud service is set up incorrectly — leaving it more exposed than it should be. 
+The software itself isn't broken; it's just configured in a way that creates a gap.
+
+Common examples:
+
+Default credentials left unchanged (admin/admin)
+Unnecessary open ports or services running
+Overly permissive firewall rules (allowing traffic from anywhere)
+Cloud storage buckets set to "public" instead of private (classic AWS S3 misconfig cause of many breaches)
+Unnecessary admin/root privileges granted to regular users
+Debug mode left enabled in production
+Missing or weak access controls (no MFA, weak password policy)
+
+
+Unpatched Vulnerabilities:
+
+This is when known security flaws (CVEs) in software or hardware exist, but a patch/fix that the vendor already released hasn't been applied yet. 
+Attackers actively scan the internet for systems still running vulnerable versions.
+
+Why this keeps happening:
+
+Patch management delays (testing before deployment, downtime concerns)
+Legacy/end-of-life systems that no longer get updates
+Large environments where tracking every asset's patch status is hard
+"Patch fatigue" — too many CVEs, not enough resources to prioritize
 
 
 Servers application / Database / File
