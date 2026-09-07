@@ -1,0 +1,159 @@
+🛡️ MITRE ATT&CK - Tactic #1: Reconnaissance (TA0043)
+
+This is the first stage of many attacks.
+
+Definition:
+
+Reconnaissance is the process of gathering information about a target before attacking it.
+
+Think of it like this:
+
+A thief doesn't usually break into a house without looking at it first.
+
+He may ask:
+
+Which house has no security cameras?
+When does the owner leave?
+Where are the doors and windows?
+Is there a dog?
+
+Cyber attackers do exactly the same thing.
+
+🎯 Attacker's Goal
+
+The attacker's goal is NOT to hack yet.
+
+The goal is:
+"Learn as much as possible about the target."
+The more information they collect, the higher their chance of success.
+
+
+What Information Do Attackers Collect?
+
+Imagine they want to attack ABC Company.
+They may search for:
+
+1. Company Name
+Example:
+ABC Technologies
+
+
+2. Employee Names
+
+Example:
+CEO
+HR Manager
+IT Administrator
+SOC Analyst
+Why?
+Because phishing emails are much more convincing when they use real employee names.
+
+
+3. Email Addresses
+
+Example:
+john@company.com
+admin@company.com
+support@company.com
+Now the attacker knows where to send phishing emails.
+
+
+4. Public IP Addresses
+Maybe the company has:
+203.x.x.x
+Now the attacker knows where public services are exposed.
+
+
+5. Domain Names
+
+Example:
+company.com
+From there they may discover:
+mail.company.com
+vpn.company.com
+portal.company.com
+
+
+6. Technologies
+
+Questions like:
+Windows?
+Linux?
+Apache?
+IIS?
+Microsoft 365?
+Fortinet?
+Cisco?
+Knowing the technology helps attackers choose suitable attack methods.
+
+
+🔥 Real Example
+
+Imagine a company posts this on LinkedIn:
+
+"We're hiring a Splunk Engineer with experience in Windows Server 2022 and Microsoft Sentinel."
+What does the attacker learn?
+
+They now know the company probably uses:
+Splunk
+Windows Server
+Microsoft Sentinel
+This can influence how they plan the next stages of the attack.
+
+
+🛡️ SOC Analyst Perspective
+
+Here's an important point:
+
+Reconnaissance usually happens outside your organization's network.
+
+That means:
+
+You usually won't see Windows Event IDs.
+You usually won't see a process tree.
+You usually won't see powershell.exe or cmd.exe.
+
+So what might you detect?
+
+Many requests to your public website.
+Repeated DNS queries.
+Port scanning on internet-facing systems.
+Large numbers of requests from the same IP address.
+
+This is often monitored by:
+
+Firewalls
+IDS/IPS (such as Suricata or Snort)
+Web server logs
+DNS logs
+SIEM platforms like Wazuh or Splunk after logs are collected
+
+
+
+🎯 First Practical Exercise
+
+Imagine you are the SOC analyst.
+
+At 10:15 AM, your firewall reports:
+
+Source IP: 185.100.50.20
+
+Requests:
+vpn.company.com
+mail.company.com
+portal.company.com
+dev.company.com
+
+Time:
+30 seconds
+Your Questions
+Is this:
+Normal
+Suspicious
+Needs Investigation
+Why?
+What might the attacker be trying to learn?
+If this is reconnaissance, what MITRE tactic does it belong to ?
+
+link:
+https://attack.mitre.org/tactics/TA0043/
