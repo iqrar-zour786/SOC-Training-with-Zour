@@ -1,0 +1,148 @@
+MITRE ATT&CK Journey
+
+Tactic #6: Privilege Escalation
+
+🎯 Goal
+The attacker's goal is to gain higher-level permissions on a compromised system.
+
+One-line definition:
+Privilege Escalation is the process of obtaining higher privileges (such as Administrator or SYSTEM) after gaining initial access to a system.
+
+
+🏠 Real-life Example
+
+Imagine a visitor enters an office building with a guest pass.
+
+They can enter the lobby.
+They cannot enter the server room.
+
+If they steal the manager's access card, they can now enter every restricted area.
+➡️ That is Privilege Escalation.
+
+
+💻 Cybersecurity Example
+
+An attacker successfully compromises a normal user account.
+Instead of staying as a normal user, they attempt to become:
+
+Administrator
+Root (Linux)
+SYSTEM (Windows)
+
+Once successful, they can:
+
+Disable antivirus
+Create new admin users
+Dump passwords
+Install malware
+Control the entire machine
+
+
+🔴 Common MITRE Techniques
+
+Here are some common techniques used for Privilege Escalation:
+
+1. Exploiting Vulnerabilities
+Attackers exploit an operating system or software vulnerability to become Administrator.
+
+Example:
+
+Windows Local Privilege Escalation vulnerability
+Linux kernel vulnerability
+
+
+2. Credential Dumping
+
+Stealing credentials from memory.
+Popular tool:
+Mimikatz
+Attackers dump passwords and hashes from memory.
+
+
+3. Abuse of Misconfigured Permissions
+
+Examples:
+
+Weak folder permissions
+Writable service files
+Unquoted service paths
+Weak scheduled task permissions
+
+4. Token Impersonation
+
+Windows access tokens are stolen and reused to impersonate another user.
+
+
+5. Bypassing UAC (User Account Control)
+
+The attacker tricks Windows into granting Administrator privileges without a normal prompt.
+
+
+🚩 SOC Analyst Red Flags
+
+If you're monitoring logs, investigate when you see:
+
+🚩 A normal user suddenly becomes Administrator.
+
+🚩 Unexpected use of:
+
+runas
+psexec
+wmic
+powershell
+
+🚩 Creation of new administrator accounts.
+
+🚩 Suspicious service modifications.
+
+🚩 Scheduled tasks created by unusual users.
+
+🚩 Multiple privilege assignment events.
+
+
+📄 Windows Event IDs to Monitor
+Some important Windows Security Event IDs include:
+| Event ID | Meaning                                    |
+| -------- | ------------------------------------------ |
+| 4672     | Special privileges assigned to a new logon |
+| 4688     | New process created                        |
+| 4720     | User account created                       |
+| 4728     | User added to a privileged group           |
+| 4732     | Member added to a local security group     |
+| 7045     | New service installed (System log)         |
+
+
+🔍 SOC Investigation Questions
+When investigating Privilege Escalation, ask yourself:
+
+Why was Administrator privilege requested?
+Which user executed the command?
+Which process launched it?
+Was PowerShell involved?
+Was cmd.exe started by an Office application?
+Did the user recently log in from a new location?
+Were new administrator accounts created?
+Was a service installed unexpectedly?
+
+
+🧠 Remember:
+Privilege Escalation is about getting more permissions, not about keeping access.
+
+Privilege Escalation = Gain higher privileges.
+Persistence = Maintain access over time.
+
+
+
+📝 Mini Quiz (Your Turn)
+
+Answer these without looking back:
+
+What is the main goal of Privilege Escalation?
+Which Windows Event ID indicates special privileges assigned to a new logon?
+Name two techniques attackers use for Privilege Escalation.
+As a SOC Analyst, what would make you suspicious if a normal user account suddenly received Administrator privileges?
+What's the difference between Persistence and Privilege Escalation?
+
+
+link:
+https://attack.mitre.org/tactics/TA0004/
