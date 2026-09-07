@@ -1,0 +1,246 @@
+Chapter 1: What is MITRE ATT&CK ?
+
+First, what is MITRE?
+
+Many beginners think MITRE is a hacking tool.
+❌ It's NOT a hacking tool.
+❌ It's NOT antivirus software.
+❌ It's NOT a SIEM.
+
+MITRE is a non-profit organization that conducts research in cybersecurity and many other technical fields.
+
+One of its most famous projects is the...
+  MITRE ATT&CK Framework
+
+What does ATT&CK mean?
+
+ATT&CK stands for:
+
+Adversarial
+Tactics
+Techniques
+&
+Common
+Knowledge
+
+Let's understand each word.
+Adversarial
+Means the attacker.
+
+Examples:
+
+Hacker
+Cybercriminal
+Insider threat
+Nation-state attacker
+
+
+Tactics
+
+A tactic answers one question:
+
+"What is the attacker's goal at this stage?"
+
+Examples:
+
+Gain access
+Execute malware
+Steal credentials
+Move through the network
+
+Think of tactics as the attacker's objective.
+
+
+Techniques
+A technique answers another question:
+"How does the attacker achieve that goal?"
+
+
+Example:
+Goal:
+
+Execute malicious code
+
+Technique:
+
+PowerShell
+Command Prompt
+WMI
+Scheduled Task
+
+These are different ways to accomplish the same objective.
+
+
+Common Knowledge
+
+This means the information is collected from real-world attacks and shared publicly so defenders can learn from it.
+
+MITRE didn't invent these attack methods—they documented techniques that attackers have actually used.
+
+A Simple Example
+
+Imagine a burglar.
+
+Goal (Tactic)
+
+Enter your house.
+
+Method (Technique)
+Break the window
+Use a duplicate key
+Pick the lock
+Enter through an open door
+
+The goal stays the same (get inside), but there are multiple methods to achieve it.
+
+Cyberattacks work the same way.
+
+
+
+Why do SOC Analysts use MITRE ATT&CK?
+
+Suppose Wazuh generates this alert:
+
+powershell.exe launched
+
+A beginner might think:
+
+"PowerShell started."
+
+A SOC analyst thinks:
+
+Which ATT&CK technique is this?
+Why did PowerShell start?
+Who launched it?
+What command was executed?
+Is this normal administration or malicious activity?
+Which tactic does this belong to?
+What could the attacker do next?
+
+See the difference? That's the mindset we're building.
+
+
+
+Why is MITRE ATT&CK Important?
+
+Without MITRE:
+
+Alert
+↓
+Looks suspicious...
+
+With MITRE:
+
+Alert
+↓
+Map to ATT&CK
+↓
+Understand attacker objective
+↓
+Predict next steps
+↓
+Respond faster
+
+That's why SOC teams often map detections to MITRE ATT&CK. It gives everyone a common language for describing attacker behavior.
+
+
+                                                            Roadmap for MITRE ATT@CK
+
+                              MITRE ATT&CK
+                                     │
+ ┌───────────────────────────────────┼───────────────────────────────────┐
+ │                                   │                                   │
+Reconnaissance                 Resource Development               Initial Access
+(Gather Information)           (Prepare Resources)               (Gain Entry)
+ │                              │                                 │
+ • OSINT                        • Domains                         • Phishing
+ • Email Discovery              • Infrastructure                  • Exploits
+ • Network Scanning             • Malware                         • Valid Accounts
+
+                                     │
+                                     ▼
+
+                               Execution
+                         (Run Malicious Code)
+                                     │
+                  • PowerShell • CMD • Scripts • Malware
+
+                                     │
+                                     ▼
+
+                               Persistence
+                         (Maintain Access)
+                                     │
+          • Scheduled Tasks • Services • Registry • Startup
+
+                                     │
+                                     ▼
+
+                         Privilege Escalation
+                        (Gain Higher Privileges)
+                                     │
+            • UAC Bypass • Token Abuse • Exploits • Misconfigurations
+
+                                     │
+                                     ▼
+
+                           Defense Evasion
+                       (Avoid Detection)
+                                     │
+        • Clear Logs • Disable AV • Obfuscation • Masquerading
+
+                                     │
+                                     ▼
+
+                           Credential Access
+                       (Steal Credentials)
+                                     │
+     • LSASS Dumping • Mimikatz • Brute Force • Password Spraying
+
+                                     │
+                                     ▼
+
+                               Discovery
+                 (Gather Information About the System)
+                                     │
+ • Users • Groups • Processes • Services • Network • Shares • Host Info
+
+                                     │
+                                     ▼
+
+                           Lateral Movement
+              (Move to Other Systems in the Network)
+                                     │
+       • RDP • SMB • PsExec • WinRM • Pass-the-Hash
+
+                                     │
+                                     ▼
+
+                               Collection
+                    (Gather Valuable Data)
+                                     │
+      • Documents • Emails • Screenshots • Databases • Clipboard
+
+                                     │
+                                     ▼
+
+                          Command and Control (C2)
+                  (Communicate with Attacker Server)
+                                     │
+       • HTTPS • DNS • Web Protocols • Encrypted Channels
+
+                                     │
+                                     ▼
+
+                               Exfiltration
+                  (Steal Data Outside the Network)
+                                     │
+         • Cloud Storage • FTP • HTTPS • Compression
+
+                                     │
+                                     ▼
+
+                                Impact
+                      (Disrupt or Destroy)
+                                     │
+     • Ransomware • Data Destruction • Encryption • Service Stop
