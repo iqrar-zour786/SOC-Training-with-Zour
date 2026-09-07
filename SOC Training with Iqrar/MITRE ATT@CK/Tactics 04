@@ -1,0 +1,194 @@
+MITTRE ATT@CK Journey
+
+🎯 Tactic 4: Execution (TA0002)
+
+What is Execution?
+
+Execution means:
+  [ The attacker runs malicious code or commands on the victim's system after getting access.]
+
+Think of it like this:
+[
+Reconnaissance
+       ↓
+Resource Development
+       ↓
+Initial Access
+       ↓
+⭐ Execution ⭐
+]
+
+The attacker is now inside the system.
+Now they want their code to actually run.
+
+
+Goal of Execution
+The attacker's goal is to execute something that helps them continue the attack.
+
+Examples:
+
+Run malware
+Run PowerShell commands
+Run Command Prompt commands
+Execute ransomware
+Launch a script
+Start a backdoor
+Run a malicious DLL
+
+
+Real SOC Example:
+
+Imagine this attack:
+
+Step 1
+
+The victim receives a phishing email.
+
+↓
+
+Step 2
+
+The victim opens:
+
+Invoice.pdf.exe
+↓
+Step 3
+
+Windows executes:
+malware.exe
+
+⭐ This is Execution.
+
+
+Another Example
+
+The attacker already has remote access.
+
+They type:
+powershell.exe -enc SQBmACA...
+
+PowerShell starts.
+
+The encoded command runs.
+
+⭐ That is also Execution.
+
+
+| Technique                         | Example                             |
+| --------------------------------- | ----------------------------------- |
+| PowerShell                        | `powershell.exe`                    |
+| Command and Scripting Interpreter | `cmd.exe`, PowerShell, Bash         |
+| Windows Command Shell             | `cmd.exe /c whoami`                 |
+| Scheduled Task                    | Run malware later                   |
+| User Execution                    | Victim opens a malicious file       |
+| Malicious DLL                     | DLL execution                       |
+| Native API                        | Malware directly calls Windows APIs |
+
+
+SOC Red Flags 🚩
+
+If you see these, investigate them:
+
+🚩
+
+powershell.exe -enc
+
+Reason:
+Encoded PowerShell is commonly used to hide commands.
+
+🚩
+
+cmd.exe /c
+
+Reason:
+Runs commands and exits.
+
+🚩
+
+wscript.exe
+
+Reason:
+Can execute malicious VBScript.
+
+🚩
+cscript.exe
+
+Reason:
+Runs Windows Script Host scripts.
+
+🚩
+
+mshta.exe
+
+Reason:
+A LOLBin that can execute remote or local HTA files.
+
+🚩
+
+rundll32.exe
+
+Reason:
+Can execute functions inside DLLs.
+
+🚩
+
+regsvr32.exe
+
+Reason:
+Can register or execute DLLs and has been abused by attackers.
+
+
+Logs a SOC Analyst Watches
+
+During Execution, you should monitor:
+
+Process Creation (Windows Event ID 4688)
+PowerShell Logs (if enabled)
+Sysmon Event ID 1 (Process Creation)
+Parent–Child process relationships
+Command-line arguments
+Script block logging (PowerShell, when enabled)
+
+Example Investigation
+
+Suppose you see:
+
+Parent:
+WINWORD.EXE
+
+Child:
+powershell.exe
+
+Command Line:
+powershell.exe -enc SQBmACA...
+
+Questions to ask:
+
+Why did Microsoft Word launch PowerShell?
+Is the document trusted?
+What does the encoded command do?
+Did PowerShell contact an external IP afterward?
+Did it create new files or processes?
+
+These questions help determine whether the activity is legitimate or malicious.
+
+Easy Way to Remember
+
+Reconnaissance
+↓
+Learn about the victim
+
+Resource Development
+↓
+Prepare everything
+
+Initial Access
+↓
+Get inside
+
+Execution
+↓
+Run the malicious code
+
+Link:
+https://attack.mitre.org/tactics/TA0002/
