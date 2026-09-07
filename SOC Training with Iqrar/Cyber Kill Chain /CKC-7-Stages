@@ -1,0 +1,72 @@
+CYBER KILL CHAIN
+
+7-STAGES
+
+
+1. Reconnaissance:
+
+Attacker gathers information about the target before acting.
+
+What happens: Scanning IP ranges, harvesting employee emails from LinkedIn, reviewing public job postings for tech stack clues, general OSINT on the organization.
+Detection angle: Mostly passive/external, so hard to catch directly. Watch for scanning traffic hitting your perimeter, and monitor your own exposed data 
+(leaked emails, subdomains) via threat intel feeds.
+
+
+
+2. Weaponization
+
+Attacker builds the actual attack tool by pairing a payload with a delivery/exploit method.
+
+What happens: Creating a malicious PDF or Office doc with embedded exploit code, or bundling malware with a dropper.
+Detection angle: Happens on the attacker's own infrastructure — invisible to defenders. This is why threat intel about known malware families/tooling matters here.
+
+
+
+3. Delivery
+
+Attacker transmits the weaponized payload to the target.
+
+What happens: Phishing email attachment, malicious link, infected USB drive, drive-by download, exploiting an internet-facing service.
+Detection angle: Email gateway filtering, spam/phishing detection, web proxy logs, monitoring for suspicious attachments/downloads. 
+This is often the first real chance to stop an attack.
+
+
+
+4. Exploitation
+
+The payload triggers, exploiting a vulnerability or tricking the user to execute it.
+
+What happens: A macro runs, a buffer overflow is triggered, an unpatched CVE gets exploited.
+Detection angle: EDR/antivirus behavioral detection, monitoring for unusual process spawns (e.g., winword.exe → powershell.exe), IDS/IPS signatures for known exploits.
+
+
+
+5. Installation
+
+Attacker installs persistent malware/backdoor on the compromised system.
+
+What happens: Backdoor installed, registry run keys added, scheduled tasks created, new services set up — so the attacker survives a reboot.
+Detection angle: Monitor for new/unusual scheduled tasks, registry changes (autostart locations), new services, unsigned binaries running from odd paths.
+
+
+
+6. Command & Control (C2)
+
+Malware calls back to the attacker's infrastructure to receive instructions.
+
+What happens: Beaconing to a C2 server over HTTP/HTTPS/DNS, often disguised as normal traffic.
+Detection angle: This is a huge detection opportunity — look for beaconing patterns (regular interval callbacks), 
+DNS tunneling, connections to newly-registered or known-bad domains, unusual outbound traffic volume.
+
+
+
+7. Actions on Objectives
+
+Attacker achieves their actual goal.
+
+What happens: Data exfiltration, ransomware deployment, lateral movement to reach more valuable systems, destruction/sabotage.
+Detection angle: DLP (Data Loss Prevention) alerts, large/unusual outbound data transfers, mass file encryption activity, lateral movement detection 
+(unusual authentication patterns across hosts).
+
+
+...
