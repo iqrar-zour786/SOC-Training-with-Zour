@@ -1,0 +1,135 @@
+MITRE ATT@CK Journey
+
+Tactic 11: Collection
+
+
+🎯 Goal:
+The adversary is trying to collect valuable data before stealing it.
+
+Think of it this way:
+"I've broken into the network. Now let me gather the important files."
+
+
+What attackers collect:
+
+Password databases
+Documents (.docx, .pdf)
+Excel files
+Customer databases
+Financial records
+Browser data
+Screenshots
+Clipboard contents
+Emails
+SSH keys
+Source code
+
+
+Common MITRE Techniques:
+
+Data from Local System
+Data from Network Shared Drive
+Screen Capture
+Clipboard Data
+Audio Capture
+Video Capture
+Automated Collection
+
+
+Windows Event IDs to Investigate:
+Collection doesn't have one dedicated Event ID, but SOC analysts commonly correlate:
+
+4688
+
+Process Creation
+Check if tools like:
+powershell.exe
+cmd.exe
+robocopy.exe
+xcopy.exe
+7z.exe
+rar.exe
+are being used to gather files.
+
+
+4663
+
+Object Access
+Detects access to sensitive files or folders (when Object Access auditing is enabled).
+
+5145
+
+Network Share Access
+Indicates files being accessed over SMB shares.
+
+
+What should a SOC analyst ask?
+
+Whenever you observe file collection activity, investigate:
+
+✔️ Who accessed the files?
+✔️ What files were collected?
+✔️ When did it happen?
+✔️ Where were the files located?
+✔️ Why is the user accessing them?
+✔️ How many files were accessed?
+✔️ Was the data compressed?
+ZIP
+RAR
+7z
+✔️ Was PowerShell used?
+✔️ Was the activity outside normal working hours?
+✔️ Did the same host later upload or transfer the data?
+
+
+Real-world example
+
+An attacker gains access to an HR employee's laptop.
+
+They execute:
+
+robocopy C:\Users\HR\Documents C:\Temp\Collected /E
+
+Then they compress everything:
+
+7z a HR_Data.7z C:\Temp\Collected
+
+Next, they prepare to send that archive outside the organization (the next tactic covers that).
+
+
+SOC Investigation Flow:
+
+User Login
+      ↓
+4688 (robocopy.exe)
+      ↓
+4663 (Sensitive files accessed)
+      ↓
+7z.exe launched
+      ↓
+Archive created
+      ↓
+Look for network activity
+
+
+
+🎯 Quiz (No Google)
+Q1.
+
+What is the main objective of the Collection tactic?
+
+Q2.
+
+Which Windows Event ID helps detect process creation?
+
+Q3.
+
+Which Event ID can show access to sensitive files (when auditing is enabled)?
+
+Q4.
+
+If you notice 7z.exe creating a large archive after many confidential files were accessed, what would be your first investigative questions as a SOC analyst?
+
+
+link:
+https://attack.mitre.org/tactics/TA0009/
