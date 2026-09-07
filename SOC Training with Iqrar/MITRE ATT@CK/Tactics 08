@@ -1,0 +1,137 @@
+MITRE ATT@CK Journey
+
+🔐 Credential Access (TA0006)
+
+The attacker's goal is to steal credentials such as:
+
+Usernames
+Passwords
+Password hashes
+Kerberos tickets
+API keys
+Tokens
+Cached credentials
+
+Without credentials, it's much harder for an attacker to move through an environment or access sensitive systems.
+
+
+Real-World Examples
+1. 🛠️ Mimikatz
+
+One of the most well-known tools attackers use.
+
+It can extract:
+
+Password hashes
+Kerberos tickets
+Credentials stored in memory
+
+
+2. 🧠 LSASS Memory Dump
+
+Attackers may try to dump the memory of the Local Security Authority Subsystem Service (LSASS) because it can contain credentials for logged-on users.
+
+
+3. 🎣 Credential Phishing
+
+Sending fake login pages to trick users into entering their usernames and passwords.
+
+
+4. ⌨️ Keylogging
+
+Capturing keystrokes to steal usernames and passwords.
+
+
+5. 🎫 Kerberoasting
+
+Requesting service tickets in an Active Directory environment and attempting to crack them offline to recover service account passwords.
+
+
+6. 🔑 Password Spraying
+
+Trying a small number of common passwords against many accounts to avoid account lockouts.
+
+Example:
+User1 → Winter2026!
+User2 → Winter2026!
+User3 → Winter2026!
+
+Instead of trying hundreds of passwords on one account.
+
+Windows Event IDs Every SOC Analyst Should Know
+
+| Event ID | Meaning                            | Why It Matters                                              |
+| -------: | ---------------------------------- | ----------------------------------------------------------- |
+| **4624** | Successful Logon                   | Check who logged in, from where, and using what logon type. |
+| **4625** | Failed Logon                       | Look for brute-force or password spraying attempts.         |
+| **4648** | Logon with Explicit Credentials    | A process used supplied credentials to authenticate.        |
+| **4672** | Special Privileges Assigned        | Watch for privileged logons.                                |
+| **4688** | Process Created                    | Monitor tools like PowerShell or suspicious utilities.      |
+| **4771** | Kerberos Pre-Authentication Failed | Can indicate password guessing or Kerberos-related attacks. |
+| **4769** | Kerberos Service Ticket Requested  | Useful when investigating Kerberoasting activity.           |
+
+
+
+🛡️ As a SOC Analyst, Ask Yourself
+
+Whenever you suspect credential theft:
+
+Who attempted the login?
+What account was targeted?
+When did it happen?
+Where did the login originate?
+Why is this activity unusual?
+How were the credentials obtained or used?
+
+
+🧠 Example Investigation
+
+Imagine you see:
+
+| Time  | Event                              |
+| ----- | ---------------------------------- |
+| 10:00 | 4625 (Failed Logon)                |
+| 10:01 | 4625 (Failed Logon)                |
+| 10:02 | 4625 (Failed Logon)                |
+| 10:03 | 4624 (Successful Logon)            |
+| 10:04 | 4672 (Special Privileges Assigned) |
+
+
+As a SOC analyst, you'd ask:
+
+Were the failed logons followed by a successful one?
+Is the source IP known or unusual?
+Was this an administrator account?
+Was multi-factor authentication expected?
+Did the user normally log in from this system?
+What happened after the privileged logon? Were new processes created (Event ID 4688)?
+
+This kind of timeline analysis helps determine whether you're looking at normal activity or a potential compromise.
+
+
+🎯 Mini Quiz (No Google 😄)
+Q1.
+
+What is the primary goal of the Credential Access tactic?
+
+Q2.
+
+Which Windows Event ID shows a failed logon attempt?
+
+Q3.
+
+Why is LSASS a valuable target for attackers?
+
+Q4.
+
+What is the difference between:
+
+Brute Force
+Password Spraying
+Q5.
+
+If you observe many 4625 events followed by one 4624 from the same IP address, what would your first hypothesis be?
+
+
+link:
+https://attack.mitre.org/tactics/TA0006/
