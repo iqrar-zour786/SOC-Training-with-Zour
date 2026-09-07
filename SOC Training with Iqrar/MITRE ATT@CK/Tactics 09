@@ -1,0 +1,162 @@
+MITRE ATT@CK Journey
+
+Discovery (TA0007)
+
+
+What is Discovery?
+
+One-line definition:
+Discovery is the process where an attacker gathers information about the compromised system, users, network, and security tools after gaining access.
+
+
+Think of it like this:
+
+Attacker enters the house (Initial Access).
+Now they look around every room.
+They check:
+
+Who lives here?
+How many computers exist?
+Who is Administrator?
+Is antivirus running?
+What network is connected?
+
+That is Discovery.
+
+
+Common attacker commands
+
+Windows:
+
+whoami
+Shows the current user.
+
+hostname
+Shows computer name.
+
+ipconfig
+Shows IP configuration.
+
+net user
+Lists local users.
+
+net localgroup administrators
+Shows administrator accounts.
+
+tasklist
+Lists running processes.
+
+systeminfo
+Shows OS version, patches, RAM, CPU, etc.
+
+netstat -ano
+Shows active network connections.
+
+arp -a
+Shows ARP cache.
+
+dir
+Lists files.
+
+
+Linux equivalents
+
+whoami
+hostname
+ifconfig
+ip addr
+ps aux
+netstat
+ss
+uname -a
+cat /etc/passwd
+
+
+Why do attackers do Discovery?
+
+Because they want to know:
+
+Which user has admin rights?
+Which antivirus is installed?
+Which servers exist?
+Is there a Domain Controller?
+Where are important files?
+Which ports are open?
+What software is installed?
+
+The more they know, the easier it becomes to move deeper into the environment.
+
+
+As a SOC Analyst, what should you look for?
+
+🚩 A normal employee suddenly runs:
+
+whoami
+systeminfo
+net user
+tasklist
+netstat
+
+all within a short time.
+
+That can indicate an attacker performing reconnaissance on the compromised host.
+
+
+Useful Windows Event IDs
+
+Some important Event IDs you may investigate during Discovery include:
+
+4688 → Process Creation
+4689 → Process Terminated
+4104 → PowerShell Script Block Logging (if enabled)
+1 (Sysmon) → Process Creation
+3 (Sysmon) → Network Connection
+11 (Sysmon) → File Created
+
+Remember: 4688 is especially valuable because it records the command that was executed.
+
+SOC Investigation Questions
+
+Whenever you see Discovery activity, ask yourself:
+
+Who executed the command?
+Which user account was used?
+Which host executed it?
+When did it happen?
+Was it normal for that user?
+Were multiple Discovery commands run in a short time?
+Did the activity continue with Privilege Escalation, Lateral Movement, or Credential Access?
+
+
+🧠 Dada's Quiz (No Google 😄)
+Q1.
+
+What is the main goal of the Discovery tactic?
+
+Q2.
+
+Which command displays the currently logged-in user?
+
+Q3.
+
+Which Windows command lists local user accounts?
+
+Q4.
+
+Which Event ID helps you detect that commands like whoami or systeminfo were executed?
+
+Q5. Scenario
+
+You see the following sequence in your logs:
+
+whoami
+hostname
+ipconfig
+systeminfo
+tasklist
+net user
+
+What would be your first thought as a SOC Analyst? Is this always malicious, or what would you investigate before making a conclusion?
+
+link
+https://attack.mitre.org/tactics/TA0007/
