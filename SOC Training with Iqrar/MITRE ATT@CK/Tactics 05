@@ -1,0 +1,97 @@
+MITTRE ATT@CK Journey 
+
+Tactic: Persistence (TA0003)
+
+🎯 What is Persistence?
+
+Persistence means:
+    ["The attacker wants to maintain access to the compromised system even after the victim reboots, logs off, or changes their password."]
+
+Think of it like this:
+
+An attacker breaks into a house and secretly makes a duplicate key before leaving. Even if the front door is locked later, they can still come back.
+That's exactly what persistence is in cybersecurity.
+
+
+🧠 Why do attackers use Persistence?
+If the victim:
+Restarts the computer ✅
+Logs out ✅
+Closes the malware ✅
+The attacker doesn't want to lose access.
+
+So they create a method that automatically gives them access again.
+
+
+| Technique              | Example                                           |
+| ---------------------- | ------------------------------------------------- |
+| Registry Run Keys      | Malware starts automatically after login          |
+| Startup Folder         | Malicious program launches at startup             |
+| Scheduled Tasks        | Windows runs malware at a specific time           |
+| Windows Services       | Creates a fake service that starts automatically  |
+| New User Account       | Creates a hidden administrator account            |
+| WMI Event Subscription | Executes malware when an event occurs             |
+| DLL Hijacking          | Loads a malicious DLL instead of a legitimate one |
+
+
+
+As a SOC Analyst, What Should You Investigate?
+
+If you see an alert, ask these questions:
+
+✅ Who created the persistence?
+
+✅ When was it created?
+
+✅ What process created it?
+
+✅ Which user account was involved?
+
+✅ Is it legitimate or suspicious?
+
+✅ Is it signed by Microsoft or another trusted vendor?
+
+✅ Did it communicate with an external IP afterward?
+
+
+Example Investigation
+
+Suppose you see this command:
+
+  => schtasks /create /sc onlogon /tn Update /tr C:\Users\Public\update.exe
+
+A SOC analyst would think:
+
+❓ Why was a scheduled task created?
+❓ Who executed this command?
+❓ Is update.exe a legitimate Windows file?
+❓ Does it exist in a suspicious location like C:\Users\Public\?
+❓ Was it downloaded from the internet?
+❓ What happened before and after this activity?
+
+
+Common Windows Event IDs
+
+These are very useful during persistence investigations:
+
+4698 → Scheduled task created
+4699 → Scheduled task deleted
+7045 → New Windows service installed
+4720 → New user account created
+4732 → User added to a privileged/local group
+4657 → Registry value modified (if auditing is enabled)
+
+  [Tips:]
+             [ Windows Events IDs are very important during investigation... ]
+
+
+📝 Homework for you
+
+Answer these three questions in your own words:
+
+What is the goal of the Persistence tactic?
+Why would an attacker create a Scheduled Task?
+If you see a new Windows service (Event ID 7045) installed on a server at 3:00 AM, what would you investigate as a SOC analyst?
+
+
+https://attack.mitre.org/tactics/TA0003/
