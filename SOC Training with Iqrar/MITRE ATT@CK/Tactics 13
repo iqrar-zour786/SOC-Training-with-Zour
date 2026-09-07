@@ -1,0 +1,167 @@
+MITRE ATT@CK Journey
+
+Tactic # 13 = Exfiltration
+
+
+🎯 Goal
+The adversary is trying to steal data from the victim's environment.
+
+Think of it like this:
+
+Collection = Gather the data. 📂
+
+Exfiltration = Send the data outside the organization. 🌐
+
+Without exfiltration, the attacker may have collected valuable information, but they haven't achieved their objective of taking it away.
+
+
+What attackers exfiltrate:
+
+Customer information
+Financial records
+Passwords and credential dumps
+Databases
+Source code
+Intellectual Property (IP)
+HR documents
+Cloud data
+Email archives
+
+
+Common Exfiltration Methods:
+
+HTTPS uploads
+FTP / SFTP
+DNS Tunneling
+Cloud Storage (Google Drive, Dropbox, OneDrive, etc.)
+Email attachments
+USB devices
+SMB shares
+RDP clipboard or file transfer
+
+
+Windows Event IDs & Telemetry
+
+There is no dedicated Windows Event ID that says "Exfiltration."
+
+Instead, SOC analysts correlate evidence from multiple sources.
+
+4688 – Process Creation
+
+Look for:
+
+powershell.exe
+curl.exe
+certutil.exe
+robocopy.exe
+7z.exe
+
+
+4663 – Object Access
+
+Sensitive files accessed before transfer.
+
+
+5145 – Network Share Access
+
+Files accessed or copied through SMB shares.
+
+
+5156 – Windows Filtering Platform
+
+Allowed outbound network connections.
+
+Also investigate:
+
+Firewall logs
+Proxy logs
+DNS logs
+EDR telemetry
+SIEM correlations
+DLP (Data Loss Prevention) alerts
+
+
+🚩 Red Flags:
+
+Large outbound data transfers
+Uploads to unknown cloud services
+Transfers outside business hours
+.zip, .rar, or .7z archives leaving the network
+Unusual outbound HTTPS traffic
+Sensitive files copied to removable media
+
+
+SOC Investigation Checklist
+
+Whenever you detect possible exfiltration, ask:
+
+✅ Who transferred the data?
+✅ What data was transferred?
+✅ Where was it sent?
+✅ When did it happen?
+✅ Why was it transferred?
+✅ How much data left the network?
+✅ Was the data compressed first?
+✅ Was the destination trusted?
+✅ Was the transfer successful?
+✅ Has this user done similar activity before?
+
+
+
+Real-World Example
+
+An attacker:
+
+Accesses confidential files (4663).
+Compresses them with 7z.exe (4688).
+Uses PowerShell to upload the archive to an external cloud service.
+Firewall or proxy logs show a large outbound HTTPS upload.
+The SOC team correlates these events and confirms Exfiltration.
+
+
+🧠 SOC Analyst Tip
+
+Don't investigate only the upload.
+
+Build the entire timeline:
+
+
+
+4663 → Sensitive files accessed
+        ↓
+4688 → 7z.exe creates archive
+        ↓
+4688 → powershell.exe starts
+        ↓
+5156 → Outbound HTTPS connection
+        ↓
+Firewall/Proxy → Large upload detected
+        ↓
+Possible Data Exfiltration
+
+
+This timeline tells the full story of the attack.
+
+
+🎯 Quiz (No Google)
+Q1.
+
+What is the primary objective of the Exfiltration tactic?
+
+Q2.
+
+What is the difference between Collection and Exfiltration?
+
+Q3.
+
+Which Windows Event ID helps detect process creation before a suspicious file transfer?
+
+Q4.
+
+Imagine a user creates a Finance.7z archive and uploads it to an unknown cloud service at 2:00 AM.
+
+As a SOC analyst, what would you investigate? List as many questions as you can.
+
+
+link:
+https://attack.mitre.org/tactics/TA0010/
