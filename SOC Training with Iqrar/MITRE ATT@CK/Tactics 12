@@ -1,0 +1,121 @@
+MITRE ATT@CK Journey
+
+tactics # 12 = Command & Control
+
+
+🎯 Goal
+
+The attacker is trying to communicate with the compromised system after gaining access.
+
+Think of it like this:
+
+🧑‍💻 Attacker → 💻 Victim Machine
+
+The attacker needs a communication channel to:
+
+Execute new commands
+Download additional malware
+Upload stolen information
+Maintain remote control
+Move to the next stage of the attack
+
+Without C2, the attacker is like a person who breaks into a building but has no way to communicate with the team outside.
+
+
+Common C2 Channels:
+Attackers often disguise their traffic to look legitimate.
+
+Examples include:
+
+HTTP / HTTPS
+DNS tunneling
+PowerShell
+Remote Desktop Protocol (RDP)
+SSH
+VPN tunnels
+Cloud services (e.g., file-sharing or collaboration platforms)
+
+
+                                                     [ very important ]
+
+Windows Events & Telemetry
+
+Unlike some tactics, there isn't a single Windows Event ID that says "This is C2." SOC analysts correlate multiple sources:
+
+4688 – Process Creation
+
+Suspicious processes:
+powershell.exe
+cmd.exe
+curl.exe
+certutil.exe
+mshta.exe
+wscript.exe
+
+5156 – Windows Filtering Platform
+
+Allowed network connections.
+
+Sysmon Event ID 3 (if Sysmon is deployed)
+
+Network connections made by a process.
+
+Firewall, DNS, proxy, EDR, and SIEM logs are also critical for detecting C2.
+
+
+Common Red Flags 🚩
+PowerShell making outbound internet connections.
+Communication with unknown or malicious IP addresses.
+Periodic "beaconing" (regular outbound traffic every few seconds or minutes).
+Long-running encrypted HTTPS sessions to suspicious domains.
+Connections occurring outside business hours.
+
+
+SOC Investigation Checklist
+Whenever you detect possible C2 activity, ask:
+
+✅ Who initiated the connection?
+✅ Which process created it?
+✅ What destination IP or domain was contacted?
+✅ Is the destination known or malicious?
+✅ How often is the connection repeated?
+✅ Was malware executed before the connection?
+✅ Was data uploaded or downloaded?
+✅ Is the traffic encrypted?
+✅ Does this match normal user behavior?
+
+
+Real-World Example
+
+An attacker compromises a workstation through phishing.
+
+Then:
+
+powershell.exe starts (4688).
+The system connects to an unknown external IP (5156 or Sysmon 3).
+Every 60 seconds, the workstation contacts the same IP (beaconing).
+The attacker sends commands remotely.
+Later, sensitive data is collected and prepared for exfiltration.
+
+A SOC analyst correlates the process creation, network telemetry, DNS, firewall, and endpoint logs to identify the C2 channel.
+
+
+🎯 Challenge (No Google)
+Q1.
+
+What is the primary objective of the Command and Control (C2) tactic?
+
+Q2.
+
+Which Windows Event ID helps detect suspicious process creation?
+
+Q3.
+
+If you observe a workstation connecting to the same unknown IP address every 60 seconds, what attack behavior might this indicate?
+
+Q4.
+
+As a SOC analyst, list at least five investigation questions you would ask after detecting possible C2 activity.
+
+link:
+https://attack.mitre.org/tactics/TA0011/
