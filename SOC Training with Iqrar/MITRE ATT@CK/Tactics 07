@@ -1,0 +1,187 @@
+MITRE ATT@CK Journey
+
+Defense Evasion (TA0005)
+
+🎯 Goal
+
+The attacker's goal is to avoid detection by security tools such as:
+
+SIEM (Splunk, Wazuh, Microsoft Sentinel)
+EDR
+Antivirus
+Windows Defender
+Firewalls
+
+Think of it this way:
+
+Privilege Escalation = "I want more permissions."
+Defense Evasion = "Now I don't want anyone to notice me."
+
+
+Examples of Defense Evasion
+1. Disabling Windows Defender
+Set-MpPreference -DisableRealtimeMonitoring $true
+
+🚩 Huge red flag.
+
+
+2. Clearing Windows Event Logs
+wevtutil cl Security
+or
+Clear-EventLog Security
+Why?
+Because attackers don't want SOC analysts to see their activity.
+
+
+3. Deleting Malware
+
+Attackers may remove their own malware after completing their objectives.
+
+
+4. Renaming Malware
+
+Instead of:
+
+mimikatz.exe
+
+they rename it to:
+
+chrome.exe
+or
+update.exe
+to blend in.
+
+
+5. PowerShell Obfuscation
+
+Instead of writing:
+
+Invoke-WebRequest
+
+they may use:
+
+I`n`v`o`k`e-WebRequest
+or
+powershell -enc SQBmACA...
+This makes the command harder to detect.
+
+6. Disabling Security Services
+
+Attackers may stop services like:
+
+Windows Defender
+Sysmon
+Security agents
+EDR software
+
+
+As a SOC Analyst, what should you investigate?
+
+Whenever you detect defense evasion, ask yourself:
+
+❓Why?
+
+Why is the user clearing logs or disabling security tools ?
+
+❓Who?
+Which user account performed the action?
+Administrator?
+Normal user?
+Service account?
+
+
+❓Where?
+Hostname
+Device name
+IP address
+Remote or local session
+
+
+❓When?
+Time of execution
+Was it after a suspicious login?
+During off-hours?
+
+
+❓What?
+Which process executed the command?
+Parent process?
+Command line?
+Was PowerShell involved?
+Were security services stopped?
+
+
+Windows Event IDs You Should Know
+
+| Event ID | Meaning               | Why It Matters                                                 |
+| -------: | --------------------- | -------------------------------------------------------------- |
+| **4688** | Process Created       | See commands like `powershell.exe`, `cmd.exe`, `wevtutil.exe`  |
+| **1102** | Audit Log Cleared     | 🚨 Very high priority. Someone cleared the Security log.       |
+| **4719** | Audit Policy Changed  | Logging configuration was modified.                            |
+| **7036** | Service State Changed | Security services started or stopped.                          |
+| **7045** | Service Installed     | Could indicate malicious persistence or tools being installed. |
+
+
+Example SOC Investigation
+
+Imagine you observe:
+
+Event ID: 4688
+
+Process:
+wevtutil.exe
+
+Command Line:
+wevtutil cl Security
+
+
+A SOC analyst should think:
+
+Why is someone clearing the Security log?
+Which account executed it?
+Is the account an administrator?
+What happened just before this event?
+Was there a suspicious login (4624/4625)?
+Were special privileges assigned (4672)?
+Were credentials accessed (4676)?
+Did the same user launch PowerShell?
+Did they create new processes afterward?
+Is this normal maintenance or suspicious activity?
+
+This is how investigations build a timeline instead of looking at a single event in isolation.
+
+
+🧠 Mini Quiz (No Google 😄)
+Q1.
+
+What is the main objective of the Defense Evasion tactic?
+
+Q2.
+
+Which Windows Event ID indicates that the Security log was cleared?
+
+Q3.
+
+If you observe:
+
+wevtutil cl Security
+
+why should this immediately catch a SOC analyst's attention?
+
+Q4.
+
+A process named chrome.exe is launched from:
+
+C:\Users\Public\
+
+instead of the normal Chrome installation directory.
+
+What would you investigate first?
+
+Q5.
+
+If an attacker disables Windows Defender, which MITRE ATT&CK tactic does that most directly represent?
+
+
+link:
+https://attack.mitre.org/tactics/TA0005/
