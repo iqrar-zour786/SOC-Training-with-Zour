@@ -1,0 +1,75 @@
+MITRE ATT@CK Journey
+
+Lateral Movement (TA0008)
+
+
+📌 Goal (One Line)
+
+Move from one compromised system to another inside the network.
+
+
+🧠 Simple Example
+An attacker compromises Employee A's computer.
+Instead of stopping there, they use stolen credentials or remote administration tools to access:
+
+File Server
+Database Server
+Domain Controller
+Other employee computers
+
+[This is called Lateral Movement]
+
+
+Common Techniques:
+
+Remote Desktop Protocol (RDP)
+SMB (Windows file sharing)
+Pass-the-Hash
+Pass-the-Ticket
+PsExec
+Windows Admin Shares (C$, ADMIN$)
+Windows Remote Management (WinRM)
+
+
+Important Windows Event IDs:
+
+4624 – Successful logon
+4625 – Failed logon
+4648 – Logon using explicit credentials
+4672 – Special privileges assigned to a new logon
+4688 – Process creation (e.g., psexec.exe)
+5140 – Network share accessed
+
+
+What Should a SOC Analyst Investigate?
+
+When you suspect lateral movement, ask:
+
+Who logged in?
+Where did they log in from?
+When did it happen?
+Why are they accessing another system?
+Which account was used?
+Was it normal behavior?
+What processes were launched (Event ID 4688)?
+Were admin shares or RDP used?
+Did the same account log into multiple hosts in a short time?
+
+
+📝 One-Line Revision
+[ Lateral Movement = Moving from one compromised machine to another within the same network ]
+
+
+🎯 SOC Challenge
+
+Answer these without Googling:
+
+What is the main goal of Lateral Movement?
+Which Windows Event ID shows a successful logon?
+Which Event ID can indicate a process like psexec.exe starting?
+Name two techniques attackers commonly use for lateral movement.
+As a SOC Analyst, what is the first thing you would investigate if the same user account suddenly logs into five different computers within five minutes?
+
+
+link:
+https://attack.mitre.org/tactics/TA0008/
