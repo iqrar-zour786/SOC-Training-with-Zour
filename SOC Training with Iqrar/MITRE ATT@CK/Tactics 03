@@ -1,0 +1,193 @@
+MITTRE ATT@CK 
+
+TA0003 – Initial Access
+This is one of the most important tactics in MITRE ATT&CK.
+
+What is Initial Access?
+Initial Access is the moment when the attacker gets their first foothold inside the victim's environment.
+
+Think of it like this:
+Reconnaissance = Finding the house 🏠
+Resource Development = Buying tools, making fake keys 🔑
+Initial Access = Unlocking the door and getting inside the house.
+
+The attacker is not yet stealing data or installing ransomware.
+
+Their first objective is simply:
+  "Get into the target system."
+
+
+Goal of Initial Access
+The attacker's goal is to obtain initial access to:
+
+A computer
+A server
+A cloud account
+A network
+An employee account
+
+Once they're inside, they can move to the next tactics.
+
+
+
+Common Initial Access Techniques
+
+Here are some of the most common techniques every SOC analyst should recognize.
+
+1. Phishing 🎣
+
+The attacker sends:
+
+Fake emails
+Fake login pages
+Malicious attachments
+
+Example:
+  "Your Microsoft 365 password will expire. Click here."
+
+The victim enters their credentials.
+Attacker gains access.
+
+
+2. Exploit Public-Facing Application 🌐
+
+The attacker exploits a vulnerable web application.
+
+Example:
+
+Outdated WordPress
+Vulnerable Apache server
+Old VPN software
+
+Instead of guessing a password...
+
+they exploit a software vulnerability.
+
+3. Valid Accounts 🔑
+
+Sometimes attackers already have:
+
+Stolen usernames
+Stolen passwords
+
+They simply log in.
+    This is why MFA (Multi-Factor Authentication) is so important.
+
+4. Drive-by Compromise
+
+The victim visits a malicious or compromised website.
+
+The website silently downloads malware.
+
+No obvious warning appears.
+
+5. External Remote Services
+
+Attackers access systems through exposed remote services like:
+
+RDP
+VPN
+SSH
+
+Especially when weak or stolen credentials are used.
+
+6. Removable Media
+
+A malicious USB device is inserted into a computer.
+
+The malware executes after the device is connected or opened.
+
+
+Real-World Example
+
+Imagine a company called ABC Ltd.
+
+The attacker:
+
+Finds employees on LinkedIn. (Reconnaissance)
+Creates a fake Microsoft login page. (Resource Development)
+Emails an employee.
+The employee logs into the fake page.
+The attacker now has the employee's credentials.
+They log into the company's VPN.
+
+➡️ Initial Access achieved.
+
+Notice how the tactics connect together like a story.
+
+What Does a SOC Analyst Look For?
+
+During Initial Access, a SOC analyst watches for things like:
+
+Multiple failed login attempts (Windows Event ID 4625)
+Successful logins from unusual locations or times (Event ID 4624, depending on context)
+VPN logins from unexpected IP addresses
+New accounts being used unexpectedly
+Phishing email alerts
+Antivirus or EDR detections
+Suspicious PowerShell or Office document activity after an email is opened
+
+Remember: a single event is rarely enough. Analysts correlate multiple logs and alerts before concluding an attack.
+
+
+Note:
+
+                  Prevention
+
+Organizations reduce the risk of Initial Access by:
+
+Enabling MFA
+Keeping systems patched
+Filtering phishing emails
+Disabling unnecessary exposed services
+Training employees
+Using EDR and SIEM solutions
+Monitoring authentication logs
+
+
+| Tactic               | Meaning                 | Goal                                |
+| -------------------- | ----------------------- | ----------------------------------- |
+| Reconnaissance       | Gather information      | Learn about the target              |
+| Resource Development | Prepare resources       | Build infrastructure for the attack |
+| **Initial Access**   | Gain the first foothold | Enter the victim's environment      |
+
+
+Question 1
+
+An employee receives an email saying:
+
+"Your Office 365 account has been locked. Click here to verify."
+
+The employee clicks the link, enters their username and password, and the attacker logs into the company VPN.
+
+Which MITRE tactic is this?
+
+
+Question 2
+
+A company forgets to update its VPN software. An attacker exploits a known vulnerability and gets into the network.
+
+Which Initial Access technique was used?
+
+
+Question 3 (SOC Analyst Thinking)
+
+Suppose you are monitoring Wazuh or another SIEM.
+
+You see:
+
+25 failed login attempts from one IP
+Followed by one successful login
+At 3:12 AM
+From a country where the company has no employees
+
+Would you:
+
+A) Ignore it
+B) Investigate it
+C) Close the alert immediately
+
+Most importantly: Why?
+
+link:
+https://attack.mitre.org/tactics/TA0001/
